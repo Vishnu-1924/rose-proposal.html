@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  background: #000;
+}
+
+/* ===== ANIME BACKGROUND ===== */
+.anime-scene {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to top, #ff758c, #ff7eb3);
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Sun */
+.sun {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 50%;
+}
+
+/* Characters (silhouette style) */
+.boy, .girl {
+  position: absolute;
+  bottom: 0;
+  width: 90px;
+  height: 220px;
+  background: #111;
+  border-radius: 50px 50px 20px 20px;
+}
+
+.boy {
+  left: 25%;
+  animation: boyWalk 4s forwards;
+}
+
+.girl {
+  right: 25%;
+  animation: girlWalk 4s forwards;
+}
+
+@keyframes boyWalk {
+  to { left: 40%; }
+}
+
+@keyframes girlWalk {
+  to { right: 40%; }
+}
+
+/* Falling petals */
+.petals::before {
+  content: "🌸 🌸 🌸 🌸 🌸 🌸";
+  position: absolute;
+  width: 100%;
+  top: -10%;
+  font-size: 22px;
+  animation: petalsFall 6s linear infinite;
+}
+
+@keyframes petalsFall {
+  to { transform: translateY(110vh); }
+}
+
+/* ===== PROPOSAL CARD ===== */
+.card {
+  width: 330px;
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  margin: auto;
+  margin-top: 18vh;
+  animation: pop 1s ease;
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.text {
+  font-size: 17px;
+  min-height: 70px;
+  margin: 15px 0;
+}
+
+/* Rose button */
+button {
+  padding: 12px 26px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg,#ff416c,#ff4b2b);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body onclick="startMusic()">
+
+<!-- Background music -->
+<audio id="bgMusic" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Anime scene -->
+<div class="anime-scene">
+  <div class="sun"></div>
+  <div class="petals"></div>
+  <div class="boy"></div>
+  <div class="girl"></div>
+</div>
+
+<!-- Proposal card -->
+<div class="card">
+  <h3>From Vishnu 🌹</h3>
+
+  <div class="text" id="message">
+    I have something from my heart...
+  </div>
+
+  <button onclick="startMusic(); nextMessage()">🌹 Take the Rose</button>
+</div>
+
+<script>
+/* Messages */
+const messages = [
+  "From the moment I met you, everything felt different.",
+  "Your smile quietly became my favorite place.",
+  "I don’t want perfect, I want real — with you.",
+  "I choose you, today and always.",
+  "Will you accept this rose and be mine?"
+];
+
+let index = 0;
+
+function nextMessage() {
+  if (index < messages.length) {
+    document.getElementById("message").innerText = messages[index];
+    index++;
+  }
+}
+
+/* Music start (mobile safe) */
+function startMusic() {
+  const music = document.getElementById("bgMusic");
+  if (music.paused) {
+    music.play();
+  }
+}
+</script>
+
+</body>
+</html>
